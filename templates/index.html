@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/static/styles.css?v=1.1">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Todo</h1>
+            <div class="buttons">
+                <div class="minimize">_</div>
+                <div class="maximize">[]</div>
+                <div class="close">X</div>
+            </div>
+            <a href="https://open.spotify.com/playlist/37i9dQZF1EVHGWrwldPRtj" target="_blank" class="spotify-link">Listen to Playlist</a>
+        </header>
+
+        <form id="taskForm" method="POST" action="/add">
+            <input type="text" id="taskInput" name="task" placeholder="Enter a new task!" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <ul id="taskList">
+            {{range .}}
+            <li class="{{if .Status}}completed{{end}}" data-id="{{.ID}}">
+                {{.Task}}
+            </li>
+            {{end}}
+        </ul>
+
+
+        <button id="clearTasksButton">Clear All Tasks</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const taskList = document.getElementById('taskList');
+                const clearTasksButton = document.getElementById('clearTasksButton');
+
+                // Handle task toggle
+                taskList.addEventListener('click', function (e) {
+                    if (e.target && e.target.nodeName === 'LI') {
+                        const taskId = e.target.getAttribute('data-id');
+
+                        fetch('/toggle', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `id=${taskId}`
+                        }).then(response => {
+                            if (response.ok) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+
+            clearTasksButton.addEventListener('click', function () {
+                fetch('/clear', { method: 'POST' })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        }
+                    })
+            });
+        });      
+        </script>
+        </ul>
+    </div> 
+</body>
+</html>
