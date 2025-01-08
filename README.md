@@ -4,7 +4,7 @@
 Todo List is a web application built with Go. Users can manage their tasks by adding, removing, and toggling the status of said tasks. It is designed to run locally on your machine. 
 
 ## Demo
-![Todo List Demo]([https://raw.githubusercontent.com/StrwberyAAA/TodoList-local/main/Demogif.gif?token=GHSAT0AAAAAACXL6AIWMGB2FJCATOCH3PPCZXH2P3Q](https://github.com/StrwberyAAA/TodoList-local/blob/main/Demogif.gif))
+![Todo List Demo](https://github.com/StrwberyAAA/TodoList-local/blob/main/Demogif.gif)
 
 ## Third-Party Libraries and Resources
 
